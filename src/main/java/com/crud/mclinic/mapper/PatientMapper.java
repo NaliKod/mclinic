@@ -29,8 +29,6 @@ public class PatientMapper {
                 .pesel(patientDto.getPesel())
                 .email(patientDto.getEmail())
                 .address(patientDto.getAddress())
-                .visits(visitDbService.getListOfVisits(patientDto.getVisitId()))
-                .prescriptions(prescriptionDbService.getListOfPresciptions(patientDto.getPrescriptionId()))
                 .build();
     }
 
@@ -43,8 +41,6 @@ public class PatientMapper {
                 .pesel(patient.getPesel())
                 .email(patient.getEmail())
                 .address(patient.getAddress())
-                .visitId(visitDbService.getListOfLongIdVisits(patient.getVisits()))
-                .prescriptionId(prescriptionDbService.getListOfLongIdPrescriptions(patient.getPrescriptions()))
                 .build();
     }
 }

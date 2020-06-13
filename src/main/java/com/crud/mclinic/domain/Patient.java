@@ -40,8 +40,8 @@ public class Patient {
     @OneToMany(
             targetEntity = Visit.class,
             mappedBy = "patient",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
+            cascade = CascadeType.ALL
+            //fetch = FetchType.EAGER
     )
     private List<Visit> visits;
 

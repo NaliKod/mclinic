@@ -1,6 +1,7 @@
 package com.crud.mclinic.controller;
 
 import com.crud.mclinic.domain.DoctorDto;
+import com.crud.mclinic.exceptions.DoctorNotFoundException;
 import com.crud.mclinic.mapper.DoctorMapper;
 import com.crud.mclinic.service.DoctorDbService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,9 @@ public class DoctorController {
     }
 
     @GetMapping(value = "/doctors/{id}")
-    public DoctorDto getDoctor(@PathVariable Long id) {
-        return doctorMapper.mapToDoctorDto(doctorDbService.getDoctorById(id).get());
+    public DoctorDto getDoctor(@PathVariable Long id) throws DoctorNotFoundException
+    {
+        return doctorMapper.mapToDoctorDto(doctorDbService.getDoctorById(id).orElseThrow(DoctorNotFoundException::new));
     }
 
     @DeleteMapping(value = "/doctors/{id}")

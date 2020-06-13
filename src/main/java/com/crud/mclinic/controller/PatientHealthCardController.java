@@ -1,6 +1,7 @@
 package com.crud.mclinic.controller;
 
 import com.crud.mclinic.domain.PatientHealthCardDto;
+import com.crud.mclinic.exceptions.PatientNotFoundException;
 import com.crud.mclinic.mapper.PatientHealthCardMapper;
 import com.crud.mclinic.service.PatientHealthCardDbService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class PatientHealthCardController {
     }
 
     @GetMapping(value = "/patientHealthCards/{id}")
-    public PatientHealthCardDto getPatientHealthCard(@PathVariable Long id){
-        return patientHealthCardMapper.mapToPatientHealthCardDto(patientHealthCardDbService.getPatientHealthCardById(id).get());
+    public PatientHealthCardDto getPatientHealthCard(@PathVariable Long id) throws PatientNotFoundException {
+        return patientHealthCardMapper.mapToPatientHealthCardDto(patientHealthCardDbService.getPatientHealthCardById(id).orElseThrow(PatientNotFoundException::new));
     }
 
     @DeleteMapping(value = "/patientHealthCards/{id}")

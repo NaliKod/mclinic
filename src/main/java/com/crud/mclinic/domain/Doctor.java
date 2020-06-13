@@ -29,24 +29,24 @@ public class Doctor {
     @OneToMany(
             targetEntity = Specialization.class,
             mappedBy = "doctor",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
+            cascade = CascadeType.ALL
+           // fetch = FetchType.EAGER
     )
     private List<Specialization> specializations;
 
     @OneToMany(
             targetEntity = Visit.class,
             mappedBy = "doctor",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
+            cascade = CascadeType.ALL
+            //fetch = FetchType.EAGER
     )
     private List<Visit> visits;
 
     @OneToMany(
             targetEntity = Prescription.class,
             mappedBy = "doctor",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
+            cascade = CascadeType.ALL
+            //fetch = FetchType.EAGER
     )
     private List<Prescription> prescriptions;
 

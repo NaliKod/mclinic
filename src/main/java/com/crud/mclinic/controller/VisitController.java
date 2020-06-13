@@ -2,6 +2,7 @@ package com.crud.mclinic.controller;
 
 import com.crud.mclinic.domain.Visit;
 import com.crud.mclinic.domain.VisitDto;
+import com.crud.mclinic.exceptions.VisitNotFoundException;
 import com.crud.mclinic.mapper.VisitMapper;
 import com.crud.mclinic.service.VisitDbService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class VisitController {
     }
 
     @GetMapping(value = "/visits/{id}")
-    public VisitDto getVist(@PathVariable Long id) {
-        return visitMapper.mapToVisitDto(visitDbService.getVisitById(id).get());
+    public VisitDto getVist(@PathVariable Long id) throws VisitNotFoundException {
+        return visitMapper.mapToVisitDto(visitDbService.getVisitById(id).orElseThrow(VisitNotFoundException::new));
     }
 
     @DeleteMapping(value = "/visits/{id}")

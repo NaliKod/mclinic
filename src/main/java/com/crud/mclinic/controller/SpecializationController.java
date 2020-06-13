@@ -1,6 +1,7 @@
 package com.crud.mclinic.controller;
 
 import com.crud.mclinic.domain.SpecializationDto;
+import com.crud.mclinic.exceptions.SpecializationNotFoundException;
 import com.crud.mclinic.mapper.SpecializationMapper;
 import com.crud.mclinic.service.SpecializationDbService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class SpecializationController {
     }
 
     @GetMapping(value = "/specializations/{id}")
-    public SpecializationDto getSpecialization(@PathVariable Long id) {
-        return specializationMapper.mapToSpecializationDto(specializationDbService.getSpecializationById(id).get());
+    public SpecializationDto getSpecialization(@PathVariable Long id) throws SpecializationNotFoundException {
+        return specializationMapper.mapToSpecializationDto(specializationDbService.getSpecializationById(id).orElseThrow(SpecializationNotFoundException::new));
     }
 
     @DeleteMapping(value = "/specializations/{id}")

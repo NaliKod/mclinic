@@ -36,8 +36,8 @@ public class Room {
     @OneToMany(
             targetEntity = Visit.class,
             mappedBy = "room",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
+            cascade = CascadeType.ALL
+            //fetch = FetchType.EAGER
     )
     private List<Visit> visits;
 

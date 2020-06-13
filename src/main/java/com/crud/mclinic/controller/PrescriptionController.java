@@ -2,6 +2,7 @@ package com.crud.mclinic.controller;
 
 import com.crud.mclinic.domain.Prescription;
 import com.crud.mclinic.domain.PrescriptionDto;
+import com.crud.mclinic.exceptions.PrescriptionNotFoundException;
 import com.crud.mclinic.mapper.PrescriptionMapper;
 import com.crud.mclinic.service.PrescriptionDbService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class PrescriptionController {
     }
 
     @GetMapping(value = "/prescriptions/{id}")
-    public PrescriptionDto getPrescription(@PathVariable Long id){
-        return prescriptionMapper.mapToPrescriptionDto(prescriptionDbService.getPrescriptionById(id).get());
+    public PrescriptionDto getPrescription(@PathVariable Long id) throws PrescriptionNotFoundException {
+        return prescriptionMapper.mapToPrescriptionDto(prescriptionDbService.getPrescriptionById(id).orElseThrow(PrescriptionNotFoundException::new));
     }
 
     @DeleteMapping(value = "/prescriptions/{id}")

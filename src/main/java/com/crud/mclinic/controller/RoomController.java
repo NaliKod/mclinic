@@ -2,6 +2,7 @@ package com.crud.mclinic.controller;
 
 import com.crud.mclinic.domain.Room;
 import com.crud.mclinic.domain.RoomDto;
+import com.crud.mclinic.exceptions.RoomNotFoundException;
 import com.crud.mclinic.mapper.RoomMapper;
 import com.crud.mclinic.service.RoomDbService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class RoomController {
     }
 
     @GetMapping("/rooms/{id}")
-    public RoomDto getRoom(@PathVariable Long id) {
-        return roomMapper.mapToRoomDto(roomDbService.getRoomById(id).get());
+    public RoomDto getRoom(@PathVariable Long id) throws RoomNotFoundException {
+        return roomMapper.mapToRoomDto(roomDbService.getRoomById(id).orElseThrow(RoomNotFoundException::new));
     }
 
     @DeleteMapping("/rooms")

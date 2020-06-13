@@ -21,18 +21,19 @@ public class NbpClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NbpClient.class);
 
-   private RestTemplate restTemplate;
-    private NbpConfig nbpConfig;
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Autowired
-    public NbpClient(RestTemplate restTemplate, NbpConfig nbpConfig) {
-        this.restTemplate = restTemplate;
-        this.nbpConfig = nbpConfig;
-    }
+    private NbpConfig nbpConfig;
+
 
     public CurrencyDto getRate(String currency) {
 
-        URI url = UriComponentsBuilder.fromHttpUrl(nbpConfig.getNbpApiEndpoint() + currency).build().toUri();
+        URI url = UriComponentsBuilder.fromHttpUrl(nbpConfig.getNbpApiEndpoint())
+                .query(currency)
+                .build()
+                .toUri();
         try {
             CurrencyDto currencyResponse = restTemplate.getForObject(url, CurrencyDto.class);
             return ofNullable(currencyResponse).orElse(new CurrencyDto());

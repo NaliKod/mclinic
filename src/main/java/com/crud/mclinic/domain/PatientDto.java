@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+
 
 
 @Getter
@@ -21,6 +21,4 @@ public class PatientDto {
     private String pesel;
     private String email;
     private String address;
-    private List<Long> visitId;
-    private List<Long> prescriptionId;
 }
