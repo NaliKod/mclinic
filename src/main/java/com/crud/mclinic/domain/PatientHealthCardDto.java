@@ -17,5 +17,4 @@ public class PatientHealthCardDto {
     private String height;
     private String description;
     private Long patientId;
-    private Long visitId;
 }

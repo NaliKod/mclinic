@@ -3,6 +3,8 @@ package com.crud.mclinic.controller;
 import com.crud.mclinic.domain.Visit;
 import com.crud.mclinic.domain.VisitDto;
 import com.crud.mclinic.exceptions.VisitNotFoundException;
+import com.crud.mclinic.factory.Herbs;
+import com.crud.mclinic.factory.TreatmentFactory;
 import com.crud.mclinic.mapper.VisitMapper;
 import com.crud.mclinic.service.VisitDbService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ public class VisitController {
     @GetMapping("/visits")
     public List<VisitDto> getVisits() {
         return visitMapper.mapToVisitDtoList(visitDbService.getAllVisits());
+
     }
 
     @GetMapping(value = "/visits/{id}")
@@ -46,6 +49,9 @@ public class VisitController {
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, value = "/visits")
-    public void createVisit(@RequestBody Visit visit) {
+    public VisitDto bookVisit(@RequestBody VisitDto visitDto) {
+        return visitMapper.mapToVisitDto(visitDbService.bookVisit(visitMapper.mapToVisit(visitDto)));
     }
+
+    public void cancelVisit(){}
 }

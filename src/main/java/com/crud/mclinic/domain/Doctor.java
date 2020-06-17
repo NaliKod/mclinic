@@ -26,13 +26,12 @@ public class Doctor {
     @Column(name="SURNAME")
      private String surname;
 
-    @OneToMany(
-            targetEntity = Specialization.class,
-            mappedBy = "doctor",
-            cascade = CascadeType.ALL
-           // fetch = FetchType.EAGER
-    )
-    private List<Specialization> specializations;
+    @Column(name="EMAIL")
+    private String email;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "SPECIALIZATION_ID")
+    private Specialization specialization;
 
     @OneToMany(
             targetEntity = Visit.class,

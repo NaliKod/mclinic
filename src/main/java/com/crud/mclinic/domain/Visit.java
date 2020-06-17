@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,17 +22,17 @@ public class Visit {
     @Column(name = "VISIT_ID", unique = true)
     private Long id;
 
-    @Column(name = "VISIT_DATE")
-    private LocalDate visitDate;
+    @Column(name = "DATE_VISIT")
+    private LocalDate dateVisit;
 
-    @Column(name = "TIME")
-    private LocalTime time;
+    @Column(name = "TIME_VISIT")
+    private LocalTime timeVisit;
 
-    @Column(name = "IS_PENDING")
-    private boolean isPending;
+    @Column(name = "IS_BOOKED")
+    private boolean isBooked;
 
-    @Column(name = "IS_CONFIRMED")
-    boolean isConfirmed;
+    @Column(name = "IS_CLOSED")
+    private boolean isClosed;
 
     @ManyToOne
     @JoinColumn(name = "DOCTOR_ID")
@@ -39,9 +41,5 @@ public class Visit {
     @ManyToOne
     @JoinColumn(name = "PATIENT_ID")
     private Patient patient;
-
-    @ManyToOne
-    @JoinColumn(name = "ROOM_ID")
-    private Room room;
 
 }

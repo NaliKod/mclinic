@@ -26,7 +26,18 @@ public class PatientHealthCardDbService {
         return patientHealthCardRepository.findById(id);
     }
 
-    public void deletePatienHealthCardById(Long id) {
+    public PatientHealthCard getPatientHealthCard(Long patientId) {
+        PatientHealthCard patientHealthCard = new PatientHealthCard();
+        for (PatientHealthCard actualHealthyCard : getAllPatientHealthCard()) {
+            if (actualHealthyCard.getPatient().getId().equals(patientId)) {
+                patientHealthCard = actualHealthyCard;
+                return patientHealthCard;
+            }
+        }
+        return patientHealthCard;
+    }
+
+    public void deletePatientHealthCardById(Long id) {
         patientHealthCardRepository.deleteById(id);
     }
 

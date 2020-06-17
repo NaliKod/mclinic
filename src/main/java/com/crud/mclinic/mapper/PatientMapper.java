@@ -2,10 +2,15 @@ package com.crud.mclinic.mapper;
 
 import com.crud.mclinic.domain.Patient;
 import com.crud.mclinic.domain.PatientDto;
+import com.crud.mclinic.domain.Room;
+import com.crud.mclinic.domain.RoomDto;
 import com.crud.mclinic.service.PrescriptionDbService;
 import com.crud.mclinic.service.VisitDbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -42,5 +47,13 @@ public class PatientMapper {
                 .email(patient.getEmail())
                 .address(patient.getAddress())
                 .build();
+    }
+    public List<PatientDto> mapToPatientDtoList(final List<Patient> patientsList) {
+        return patientsList.stream()
+                .map(p -> PatientDto.builder().id(p.getId()).name(p.getName()).surname(p.getSurname())
+                        .sex(p.getSex()).pesel(p.getPesel())
+                        .email(p.getEmail()).address(p.getAddress())
+                        .build())
+                .collect(Collectors.toList());
     }
 }

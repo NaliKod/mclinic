@@ -31,9 +31,8 @@ public class DoctorMapper {
                 .id(doctorDto.getId())
                 .name(doctorDto.getName())
                 .surname(doctorDto.getSurname())
-                .specializations(specializationDbService.getListOfSpecializations(doctorDto.getSpecializationId()))
-                .visits(visitDbService.getListOfVisits(doctorDto.getVisitId()))
-                .prescriptions(prescriptionDbService.getListOfPresciptions(doctorDto.getVisitId()))
+                .email(doctorDto.getEmail())
+                .specialization(specializationDbService.getSpecializationById(doctorDto.getSpecializationId()).get())
                 .build();
     }
 
@@ -42,17 +41,14 @@ public class DoctorMapper {
                 .id(doctor.getId())
                 .name(doctor.getName())
                 .surname(doctor.getSurname())
-                .specializationId(specializationDbService.getListOfLongIdSpecializations(doctor.getSpecializations()))
-                .visitId(visitDbService.getListOfLongIdVisits(doctor.getVisits()))
-                .prescriptionId(prescriptionDbService.getListOfLongIdPrescriptions(doctor.getPrescriptions()))
+                .email(doctor.getEmail())
+                .specializationId(doctor.getSpecialization().getId())
                 .build();
     }
     public List<DoctorDto> mapToDoctorDtoList(final List<Doctor> doctorList) {
         return doctorList.stream()
-                .map(d -> DoctorDto.builder().id(d.getId()).name(d.getName()).surname(d.getSurname())
-                        .specializationId(specializationDbService.getListOfLongIdSpecializations(d.getSpecializations()))
-                        .visitId(visitDbService.getListOfLongIdVisits(d.getVisits()))
-                        .prescriptionId(prescriptionDbService.getListOfLongIdPrescriptions(d.getPrescriptions()))
+                .map(d -> DoctorDto.builder().id(d.getId()).name(d.getName()).surname(d.getSurname()).email(d.getEmail())
+                        .specializationId(d.getSpecialization().getId())
                         .build())
                 .collect(Collectors.toList());
     }

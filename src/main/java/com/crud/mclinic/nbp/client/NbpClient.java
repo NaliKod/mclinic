@@ -27,11 +27,9 @@ public class NbpClient {
     @Autowired
     private NbpConfig nbpConfig;
 
-
     public CurrencyDto getRate(String currency) {
 
-        URI url = UriComponentsBuilder.fromHttpUrl(nbpConfig.getNbpApiEndpoint())
-                .query(currency)
+        URI url = UriComponentsBuilder.fromHttpUrl(nbpConfig.getNbpApiEndpoint()+currency)
                 .build()
                 .toUri();
         try {

@@ -26,19 +26,7 @@ public class Room {
     private Integer floor;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "PATIENT_ID")
-    private Patient patient;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "DOCTOR_ID")
     private Doctor doctor;
-
-    @OneToMany(
-            targetEntity = Visit.class,
-            mappedBy = "room",
-            cascade = CascadeType.ALL
-            //fetch = FetchType.EAGER
-    )
-    private List<Visit> visits;
 
 }

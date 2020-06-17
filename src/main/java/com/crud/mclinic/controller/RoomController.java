@@ -26,17 +26,17 @@ public class RoomController {
         this.roomMapper = roomMapper;
     }
 
-    @GetMapping("/rooms")
-    public List<Room> getRooms() {
-        return new ArrayList<>();
+    @GetMapping(value = "/rooms")
+    public List<RoomDto> getRooms() {
+        return roomMapper.mapToRoomDtoList(roomDbService.getAllRooms());
     }
 
-    @GetMapping("/rooms/{id}")
+    @GetMapping(value = "/rooms/{id}")
     public RoomDto getRoom(@PathVariable Long id) throws RoomNotFoundException {
         return roomMapper.mapToRoomDto(roomDbService.getRoomById(id).orElseThrow(RoomNotFoundException::new));
     }
 
-    @DeleteMapping("/rooms")
+    @DeleteMapping(value ="/rooms/{id}")
     public void deleteRoom(@PathVariable Long id) {
         roomDbService.deleteRoomById(id);
     }

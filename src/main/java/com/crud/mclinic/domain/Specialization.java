@@ -24,7 +24,4 @@ public class Specialization {
     @Column(name="DESCRIPTION")
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "DOCTOR_ID")
-    private Doctor doctor;
 }

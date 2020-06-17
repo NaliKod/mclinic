@@ -1,9 +1,7 @@
 package com.crud.mclinic.service;
 
 import com.crud.mclinic.domain.Prescription;
-import com.crud.mclinic.domain.Visit;
 import com.crud.mclinic.repository.PrescriptionRepository;
-import com.vaadin.flow.component.html.Pre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +42,7 @@ public class PrescriptionDbService {
                 .collect(Collectors.toList());
     }
 
-    public List<Prescription> getListOfPresciptions(final List<Long> prescriptionsId) {
+    public List<Prescription> getListOfPrescriptions(final List<Long> prescriptionsId) {
         ArrayList<Prescription> prescriptionsList = new ArrayList<>();
         for (int i = 0; i < prescriptionsId.size(); i++) {
             Optional<Prescription> prescriptions = prescriptionRepository.findById(prescriptionsId.get(i));
@@ -54,5 +52,16 @@ public class PrescriptionDbService {
             }
         }
         return prescriptionsList;
+    }
+
+    public List<Prescription> getPatientPrescriptions(Long patientId) {
+        List<Prescription> prescriptionList = new ArrayList<>();
+        List<Prescription> prescriptions = prescriptionRepository.findAll();
+        for (Prescription actualPrescription : prescriptions) {
+            if (actualPrescription.getPatient().getId().equals(patientId))
+                prescriptionList.add(actualPrescription);
+            return prescriptionList;
+        }
+        return prescriptionList;
     }
 }

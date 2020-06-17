@@ -1,6 +1,5 @@
 package com.crud.mclinic.controller;
 
-import com.crud.mclinic.domain.Prescription;
 import com.crud.mclinic.domain.PrescriptionDto;
 import com.crud.mclinic.exceptions.PrescriptionNotFoundException;
 import com.crud.mclinic.mapper.PrescriptionMapper;
@@ -8,7 +7,7 @@ import com.crud.mclinic.service.PrescriptionDbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -26,9 +25,9 @@ public class PrescriptionController {
         this.prescriptionMapper = prescriptionMapper;
     }
 
-    @GetMapping(value = "/prescriptions")
-    public List<Prescription> getPrescriptions(){
-        return new ArrayList<>();
+    @GetMapping(value = "/prescriptions/patients/{patientId}")
+    public List<PrescriptionDto> getPrescriptions(@PathVariable Long patientId) {
+        return prescriptionMapper.mapToPrescriptionDtoList(prescriptionDbService.getPatientPrescriptions(patientId));
     }
 
     @GetMapping(value = "/prescriptions/{id}")
@@ -37,18 +36,18 @@ public class PrescriptionController {
     }
 
     @DeleteMapping(value = "/prescriptions/{id}")
-    public void deletePrescription(@PathVariable Long id){
+    public void deletePrescription(@PathVariable Long id) {
         prescriptionDbService.deletePrescriptionById(id);
     }
 
     @PutMapping(value = "/prescriptions")
-    public PrescriptionDto updatePrescription(@RequestBody PrescriptionDto prescriptionDto){
+    public PrescriptionDto updatePrescription(@RequestBody PrescriptionDto prescriptionDto) {
         return prescriptionMapper.mapToPrescriptionDto(prescriptionDbService.
                 savePrescription(prescriptionMapper.mapToPrescription(prescriptionDto)));
     }
 
-    @PostMapping(consumes = APPLICATION_JSON_VALUE, value="/prescriptions")
-    public void createPrescription(@RequestBody PrescriptionDto prescriptionDto){
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, value = "/prescriptions")
+    public void createPrescription(@RequestBody PrescriptionDto prescriptionDto) {
         prescriptionDbService.savePrescription(prescriptionMapper.mapToPrescription(prescriptionDto));
     }
 }

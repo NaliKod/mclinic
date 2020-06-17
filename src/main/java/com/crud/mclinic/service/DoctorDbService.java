@@ -23,10 +23,10 @@ public class DoctorDbService {
         return doctorRepository.findAll();
     }
 
-    public List<Doctor> getAllDoctorsWitSpecialization(Long specializationId) {
-        ArrayList<Doctor> withSpecialization = new ArrayList<>();
+    public List<Doctor> getAllDoctorsWitSpecialization(final Long specializationId) {
+        List<Doctor> withSpecialization = new ArrayList<>();
         for (Doctor searchDoctor : getAllDoctors()) {
-            if (searchDoctor.getSpecializations().equals(specializationId)) {
+            if (searchDoctor.getSpecialization().getId().equals(specializationId)) {
                 withSpecialization.add(searchDoctor);
             }
         }
@@ -37,11 +37,11 @@ public class DoctorDbService {
         return doctorRepository.findById(id);
     }
 
-    public void deleteDoctorById(Long id) {
+    public void deleteDoctorById(final Long id) {
         doctorRepository.deleteById(id);
     }
 
-    public Doctor saveDoctor(Doctor doctor) {
+    public Doctor saveDoctor(final Doctor doctor) {
         return doctorRepository.save(doctor);
     }
 }

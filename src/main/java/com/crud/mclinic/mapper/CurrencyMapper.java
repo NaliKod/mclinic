@@ -10,7 +10,7 @@ public class CurrencyMapper {
     public CurrencyRateDto mapToCurrencyRateDto(CurrencyDto currencyDto){
         return CurrencyRateDto.builder()
                 .currency(currencyDto.getCode())
-                .rate(currencyDto.getRates().get(1).getMid())
+                .rate(currencyDto.getRates().get(0).getMid())
                 .build();
     }
 }

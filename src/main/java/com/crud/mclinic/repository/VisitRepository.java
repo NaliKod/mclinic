@@ -1,10 +1,11 @@
 package com.crud.mclinic.repository;
 
-import com.crud.mclinic.domain.Room;
 import com.crud.mclinic.domain.Visit;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -24,4 +25,6 @@ public interface VisitRepository extends CrudRepository<Visit,Long> {
 
     @Override
     Optional<Visit> findById(Long id);
+
+
 }

@@ -32,7 +32,4 @@ public class PatientHealthCard {
     @JoinColumn(name = "PATIENT_ID")
     private Patient patient;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "VISIT_ID")
-    private Visit visit;
 }

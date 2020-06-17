@@ -7,6 +7,9 @@ import com.crud.mclinic.service.PatientDbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Component
 public class PrescriptionMapper {
@@ -44,5 +47,15 @@ public class PrescriptionMapper {
                 .doctorId(prescription.getDoctor().getId())
                 .patientId(prescription.getPatient().getId())
                 .build();
+    }
+
+    public List<PrescriptionDto> mapToPrescriptionDtoList(final List<Prescription> prescriptionList) {
+        return prescriptionList.stream()
+                .map(p -> PrescriptionDto.builder().id(p.getId()).drug(p.getDrug()).chronicDisease(p.isChronicDisease())
+                        .duration(p.getDuration()).date(p.getDate())
+                        .doctorId(p.getDoctor().getId())
+                        .patientId(p.getPatient().getId())
+                        .build())
+                .collect(Collectors.toList());
     }
 }

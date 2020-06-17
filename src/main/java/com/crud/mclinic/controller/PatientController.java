@@ -3,6 +3,8 @@ package com.crud.mclinic.controller;
 import com.crud.mclinic.domain.Patient;
 import com.crud.mclinic.domain.PatientDto;
 import com.crud.mclinic.exceptions.PatientNotFoundException;
+import com.crud.mclinic.factory.Treatment;
+import com.crud.mclinic.factory.TreatmentFactory;
 import com.crud.mclinic.mapper.PatientMapper;
 import com.crud.mclinic.service.PatientDbService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,8 @@ public class PatientController {
     }
 
     @GetMapping(value = "/patients")
-    public List<Patient> getPatients() {
-        return new ArrayList<>();
+    public List<PatientDto> getPatients() {
+        return patientMapper.mapToPatientDtoList(patientDbService.getAllPatients());
     }
 
     @GetMapping(value = "/patients/{id}")
@@ -39,6 +41,7 @@ public class PatientController {
     @DeleteMapping(value = "/patients/{id}")
     public void deletePatient(@PathVariable Long id) {
         patientDbService.deletePatientById(id);
+
     }
 
     @PutMapping(value = "/patients")
@@ -46,8 +49,8 @@ public class PatientController {
         return patientMapper.mapToPatientDto(patientDbService.savePatient(patientMapper.mapToPatient(patientDto)));
     }
 
-    @PostMapping(consumes = APPLICATION_JSON_VALUE, value="/patients")
-    public void createPatient(@RequestBody PatientDto patientDto){
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, value = "/patients")
+    public void createPatient(@RequestBody PatientDto patientDto) {
         patientDbService.savePatient(patientMapper.mapToPatient(patientDto));
     }
 }

@@ -30,8 +30,7 @@ public class DoctorController {
     }
 
     @GetMapping(value = "/doctors/{id}")
-    public DoctorDto getDoctor(@PathVariable Long id) throws DoctorNotFoundException
-    {
+    public DoctorDto getDoctor(@PathVariable Long id) throws DoctorNotFoundException {
         return doctorMapper.mapToDoctorDto(doctorDbService.getDoctorById(id).orElseThrow(DoctorNotFoundException::new));
     }
 

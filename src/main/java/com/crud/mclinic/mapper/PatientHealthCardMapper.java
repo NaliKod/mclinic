@@ -2,22 +2,25 @@ package com.crud.mclinic.mapper;
 
 import com.crud.mclinic.domain.PatientHealthCard;
 import com.crud.mclinic.domain.PatientHealthCardDto;
+import com.crud.mclinic.domain.Room;
+import com.crud.mclinic.domain.RoomDto;
 import com.crud.mclinic.service.PatientDbService;
 import com.crud.mclinic.service.VisitDbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Component
 public class PatientHealthCardMapper {
 
     private PatientDbService patientDbService;
-    private VisitDbService visitDbService;
 
     @Autowired
-    public PatientHealthCardMapper(PatientDbService patientDbService, VisitDbService visitDbService) {
+    public PatientHealthCardMapper(PatientDbService patientDbService) {
         this.patientDbService = patientDbService;
-        this.visitDbService = visitDbService;
     }
 
     public PatientHealthCard mapToPatientHealthCard(final PatientHealthCardDto patientHealthCardDto) {
@@ -26,8 +29,7 @@ public class PatientHealthCardMapper {
                 .weight(patientHealthCardDto.getWeight())
                 .height(patientHealthCardDto.getHeight())
                 .description(patientHealthCardDto.getDescription())
-                .patient(patientDbService.getPatientById(patientHealthCardDto.getId()).get())
-                .visit(visitDbService.getVisitById(patientHealthCardDto.getVisitId()).get())
+                .patient(patientDbService.getPatientById(patientHealthCardDto.getPatientId()).get())
                 .build();
     }
 
@@ -38,7 +40,15 @@ public class PatientHealthCardMapper {
                 .height(patientHealthCard.getHeight())
                 .description(patientHealthCard.getDescription())
                 .patientId(patientHealthCard.getPatient().getId())
-                .visitId(patientHealthCard.getVisit().getId())
                 .build();
+    }
+
+    public List<PatientHealthCardDto> mapToPatientHealthCardsDtoList(final List<PatientHealthCard> patientHealthCardsList) {
+        return patientHealthCardsList.stream()
+                .map(p -> PatientHealthCardDto.builder().id(p.getId()).weight(p.getWeight()).height(p.getHeight())
+                        .description(p.getDescription())
+                        .patientId(p.getPatient().getId())
+                        .build())
+                .collect(Collectors.toList());
     }
 }

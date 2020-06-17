@@ -12,7 +12,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(name="/v1")
+@RequestMapping("/v1")
 public class SpecializationController {
 
     private SpecializationDbService specializationDbService;
