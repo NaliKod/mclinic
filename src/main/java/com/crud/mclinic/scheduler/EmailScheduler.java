@@ -2,9 +2,8 @@ package com.crud.mclinic.scheduler;
 
 import com.crud.mclinic.config.AdminConfig;
 import com.crud.mclinic.domain.Mail;
-import com.crud.mclinic.domain.Visit;
 import com.crud.mclinic.service.ScheduledEmailService;
-import com.crud.mclinic.service.SimpleEmailService;
+import com.crud.mclinic.service.ScheduledPatientEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmailScheduler {
     @Autowired
-    private SimpleEmailService simpleEmailService;
+    private ScheduledPatientEmailService scheduledPatientEmailService;
 
     @Autowired
     private ScheduledEmailService scheduledEmailService;
@@ -35,7 +34,7 @@ public class EmailScheduler {
     }*/
 
    // @Scheduled(cron = "0 0 9-17 * * MON-FRI")
-    @Scheduled(fixedDelay = 10000)
+    //@Scheduled(fixedDelay = 10000)
     public void scheduledVisitEmail(){
         scheduledEmailService.send( new Mail(adminConfig.getAdminMail(),SUBJECT_ActualSituationWitCovid19,
                 " Amount of ",""));

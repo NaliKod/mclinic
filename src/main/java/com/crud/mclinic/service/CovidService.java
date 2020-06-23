@@ -13,7 +13,7 @@ public class CovidService {
     private CovidClient covidClient;
 
     @Autowired
-    private SimpleEmailService mailService;
+    private ScheduledPatientEmailService mailService;
 
     @Autowired
     private AdminConfig adminConfig;

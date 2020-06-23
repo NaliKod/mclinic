@@ -12,18 +12,18 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SimpleEmailService {
+public class ScheduledPatientEmailService {
 
     private MailCreatorService mailCreatorService;
     private JavaMailSender javaMailSender;
 
     @Autowired
-    public SimpleEmailService(MailCreatorService mailCreatorService, JavaMailSender javaMailSender) {
+    public ScheduledPatientEmailService(MailCreatorService mailCreatorService, JavaMailSender javaMailSender) {
         this.mailCreatorService = mailCreatorService;
         this.javaMailSender = javaMailSender;
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleEmailService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScheduledPatientEmailService.class);
 
 
     private MimeMessagePreparator createMimeMessage(final Mail mail) {

@@ -3,8 +3,7 @@ package com.crud.mclinic.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 
 
@@ -22,11 +21,8 @@ public class Visit {
     @Column(name = "VISIT_ID", unique = true)
     private Long id;
 
-    @Column(name = "DATE_VISIT")
-    private LocalDate dateVisit;
-
-    @Column(name = "TIME_VISIT")
-    private LocalTime timeVisit;
+    @Column(name = "DATE_TIME_VISIT")
+    private LocalDateTime dateTimeVisit;
 
     @Column(name = "IS_BOOKED")
     private boolean isBooked;

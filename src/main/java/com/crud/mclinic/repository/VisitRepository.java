@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Transactional
 @Repository
-public interface VisitRepository extends CrudRepository<Visit,Long> {
+public interface VisitRepository extends CrudRepository<Visit, Long> {
 
     @Override
     List<Visit> findAll();
@@ -25,6 +25,4 @@ public interface VisitRepository extends CrudRepository<Visit,Long> {
 
     @Override
     Optional<Visit> findById(Long id);
-
-
 }
