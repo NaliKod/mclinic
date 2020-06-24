@@ -3,6 +3,7 @@ package com.crud.mclinic.service;
 import com.crud.mclinic.config.AdminConfig;
 import com.crud.mclinic.domain.Mail;
 import com.crud.mclinic.domain.Visit;
+import com.crud.mclinic.repository.RoomRepository;
 import com.crud.mclinic.repository.VisitRepository;
 import com.crud.mclinic.validator.VisitValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,15 @@ public class VisitDbService {
     private ScheduledPatientEmailService mailService;
     private AdminConfig adminConfig;
     private VisitValidator visitValidator;
+    private RoomDbService roomDbService;
 
     @Autowired
-    public VisitDbService(VisitRepository visitRepository, ScheduledPatientEmailService mailService, AdminConfig adminConfig, VisitValidator visitValidator) {
+    public VisitDbService(VisitRepository visitRepository, ScheduledPatientEmailService mailService, AdminConfig adminConfig, VisitValidator visitValidator, RoomDbService roomDbService) {
         this.visitRepository = visitRepository;
         this.mailService = mailService;
         this.adminConfig = adminConfig;
         this.visitValidator = visitValidator;
+        this.roomDbService = roomDbService;
     }
 
     public List<Visit> getAllVisits() {
@@ -95,7 +98,7 @@ public class VisitDbService {
                 ofNullable(newVisit).ifPresent(visit -> mailService.send(new Mail(
                         adminConfig.getAdminMail(),
                         SUBJECT,
-                        "You have booked visit by doctor: " + visit.getDoctor().getName() + " " + visit.getDoctor().getSurname() + ". Please arrive at least 15 Minutes early", "")));
+                        "You have booked visit by doctor: " + visit.getDoctor().getName() + " " + visit.getDoctor().getSurname() + ". Please arrive at least 15 Minutes early. Room " +roomDbService.findDoctorRoom(visit.getDoctor().getId()).getNumber() + " floor: "+roomDbService.findDoctorRoom(visit.getDoctor().getId()).getFloor(), "")));
             }
         }
     }
@@ -105,7 +108,7 @@ public class VisitDbService {
         visitRepository.deleteById(id);
         ofNullable(cancelVisit).ifPresent(visit -> mailService.send(new Mail(
                 adminConfig.getAdminMail(),
-                SUBJECT,
+                SUBJECT_CANCELLED_,
                 "Your visit has been cancelled by " + visit.get().getPatient().getName() + " " + visit.get().getPatient().getSurname()
                         + ". At: " + visit.get().getDateTimeVisit(), "")));
     }

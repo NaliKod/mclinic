@@ -19,20 +19,26 @@ public class VisitValidator {
         LocalTime time = dateTime.toLocalTime();
         LocalDate date = dateTime.toLocalDate();
 
-        if ((date.getDayOfWeek().getValue() != 7) && (date.getDayOfWeek().getValue() != 6)) {
-            if (((time.getHour() >= 8) && (time.getHour() <= 16))) {
-                for (LocalTime timeCheck : appointmentDateTime.appointmentTime()) {
-                    if (time.equals(timeCheck)) {
-                        validDateTime = true;
-                        break;
+        if (!date.isBefore(LocalDate.now())) {
+            if ((date.getDayOfWeek().getValue() != 7) && (date.getDayOfWeek().getValue() != 6)) {
+                if (((time.getHour() >= 8) && (time.getHour() <= 16))) {
+                    for (LocalTime timeCheck : appointmentDateTime.appointmentTime()) {
+                        if (time.equals(timeCheck)) {
+                            validDateTime = true;
+                            break;
+                        }
                     }
+                    LOGGER.info(" It is possible to book appointment at this time. Only in time slot every 30 minutes.");
+                } else {
+                    LOGGER.info("We are sorry but our clinic works from 8:00 am till 16:00 pm.");
                 }
-                LOGGER.info(" It is possible to book appointment at this time. Only in time slot every 30 minutes.");
             } else {
-                LOGGER.info("We are sorry but our clinic works from 8:00 am till 16:00 pm.");
+                LOGGER.info("We are sorry but our clinic works except Saturday and Sunday");
+                validDateTime = false;
             }
-        } else {
-            LOGGER.info("We are sorry but our clinic works except Saturday and Sunday");
+        }
+        else{
+            LOGGER.info("You can book an appointment only for a future date");
             validDateTime = false;
         }
         return validDateTime;

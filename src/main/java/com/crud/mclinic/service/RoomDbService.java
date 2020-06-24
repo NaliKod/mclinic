@@ -33,4 +33,15 @@ public class RoomDbService {
     public Room saveRoom(Room room) {
         return roomRepository.save(room);
     }
+
+    public Room findDoctorRoom(Long doctorId) {
+        Room doctorRoom = new Room();
+        for (Room actualRoom : getAllRooms()) {
+            if (actualRoom.getDoctor().getId().equals(doctorId)) {
+                doctorRoom = actualRoom;
+                return doctorRoom;
+            }
+        }
+        return doctorRoom;
+    }
 }
