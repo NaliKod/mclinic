@@ -3,7 +3,6 @@ package com.crud.mclinic.service;
 import com.crud.mclinic.config.AdminConfig;
 import com.crud.mclinic.domain.Mail;
 import com.crud.mclinic.domain.Visit;
-import com.crud.mclinic.repository.RoomRepository;
 import com.crud.mclinic.repository.VisitRepository;
 import com.crud.mclinic.validator.VisitValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 public class VisitDbService {
 
     private static final String SUBJECT = "Your visit has been booked";
-    private static final String SUBJECT_CANCELLED_ = "Your visit has been cancelled";
+    private static final String SUBJECT_CANCELLED = "Your visit has been cancelled";
 
     private VisitRepository visitRepository;
     private ScheduledPatientEmailService mailService;
@@ -108,7 +107,7 @@ public class VisitDbService {
         visitRepository.deleteById(id);
         ofNullable(cancelVisit).ifPresent(visit -> mailService.send(new Mail(
                 adminConfig.getAdminMail(),
-                SUBJECT_CANCELLED_,
+                SUBJECT_CANCELLED,
                 "Your visit has been cancelled by " + visit.get().getPatient().getName() + " " + visit.get().getPatient().getSurname()
                         + ". At: " + visit.get().getDateTimeVisit(), "")));
     }

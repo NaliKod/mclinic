@@ -11,6 +11,6 @@ public class BasicVisitPayment implements VisitPayment{
 
     @Override
     public String getTests() {
-        return "Visit by any doctor";
+        return "Medical consultation";
     }
 }

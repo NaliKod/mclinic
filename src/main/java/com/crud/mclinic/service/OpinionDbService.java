@@ -18,7 +18,7 @@ public class OpinionDbService {
         this.opinionRepository = opinionRepository;
     }
 
-    public List<Opinion> getAllOpinionss() {
+    public List<Opinion> getAllOpinions() {
         return opinionRepository.findAll();
     }
 

@@ -33,7 +33,7 @@ public class PatientHealthCardController {
         return patientHealthCardMapper.mapToPatientHealthCardDto(patientHealthCardDbService.getPatientHealthCard(patientId));
     }
 
-    @DeleteMapping(value = "/patientHealthCards")
+    @DeleteMapping(value = "/patientHealthCards/{id}")
     public void deletePatientHeathCard(@PathVariable Long id) {
         patientHealthCardDbService.deletePatientHealthCardById(id);
 
