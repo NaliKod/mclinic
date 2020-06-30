@@ -70,7 +70,7 @@ public class PrescriptionControllerTestSuite {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].chronicDisease").value(false))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].dosing").value("1 per day Dto"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].duration").value(30))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].date").value(LocalDate.of(2020, 6, 25).toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].date").value(LocalDate.now().toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].doctorId").value(1L))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].patientId").value(9L));
     }
@@ -101,7 +101,7 @@ public class PrescriptionControllerTestSuite {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.chronicDisease").value(false))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.dosing").value("1 per day Dto"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.duration").value(30))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.date").value(LocalDate.of(2020, 6, 25).toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.date").value(LocalDate.now().toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.doctorId").value(1L))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.patientId").value(9L));
     }
