@@ -52,6 +52,7 @@ public class PrescriptionMapper {
     public List<PrescriptionDto> mapToPrescriptionDtoList(final List<Prescription> prescriptionList) {
         return prescriptionList.stream()
                 .map(p -> PrescriptionDto.builder().id(p.getId()).drug(p.getDrug()).chronicDisease(p.isChronicDisease())
+                        .dosing(p.getDosing())
                         .duration(p.getDuration()).date(p.getDate())
                         .doctorId(p.getDoctor().getId())
                         .patientId(p.getPatient().getId())
